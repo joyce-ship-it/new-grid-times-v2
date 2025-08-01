@@ -1,23 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import { QUERIES } from "../../constants";
 
-const MainStory = ({
-  id,
-  title,
-  image,
-  location,
-  abstract,
-  ...delegated
-}) => {
+const MainStory = ({ id, title, image, location, abstract, ...delegated }) => {
   return (
     <Wrapper {...delegated}>
       <a href={`/story/${id}`}>
         <Image alt={image.alt} src={image.src} />
         <Heading>{title}</Heading>
       </a>
-      <Abstract>
-        <Location>{location}</Location> — {abstract}
-      </Abstract>
+      <AbstractDiv>
+        <Abstract>
+          <Location>{location}</Location> — {abstract}
+        </Abstract>
+      </AbstractDiv>
       <ReadMore href="/story">Continue Reading…</ReadMore>
     </Wrapper>
   );
@@ -40,10 +36,18 @@ const Heading = styled.h2`
   line-height: 1.3;
 `;
 
+const AbstractDiv = styled.div``;
 const Abstract = styled.p`
   font-size: 1rem;
   margin-bottom: 1em;
   white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
+  @media ${QUERIES.tabletAndUp} {
+    -webkit-line-clamp: 16;
+  }
 `;
 
 const Location = styled.span`
